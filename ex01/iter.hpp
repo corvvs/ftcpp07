@@ -1,6 +1,8 @@
 #ifndef CPP07_ITER_HPP_
 # define CPP07_ITER_HPP_
 
+# include <cstdlib>
+
 template <class T, typename Func>
 void    iter(T array[], std::size_t n, Func func) {
     if (!func) { return; }

@@ -2,6 +2,8 @@
 #include <cmath>
 #include "whatever.hpp"
 #include "Fixed.hpp"
+#include "whatever.hpp"
+#include "Fixed.hpp"
 
 void    say(const std::string& str) {
     std::cout << str << std::endl;

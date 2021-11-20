@@ -4,7 +4,7 @@
 #include "Array.hpp"
 
 template <class From, class To>
-Array<To>   map(Array<From> from, To (*mapper)(From)) {
+Array<To>   map(Array<From>& from, To (*mapper)(From)) {
     Array<To> mapped(from.size());
     for (unsigned int i = 0; i < from.size(); i += 1) {
         mapped[i] = mapper(from[i]);
@@ -13,7 +13,7 @@ Array<To>   map(Array<From> from, To (*mapper)(From)) {
 }
 
 template <class From, class To>
-Array<To>   map(Array<From> from, To (*mapper)(From&)) {
+Array<To>   map(Array<From>& from, To (*mapper)(From&)) {
     Array<To> mapped(from.size());
     for (unsigned int i = 0; i < from.size(); i += 1) {
         mapped[i] = mapper(from[i]);
@@ -22,7 +22,7 @@ Array<To>   map(Array<From> from, To (*mapper)(From&)) {
 }
 
 template <class T, class R>
-R   reduce(Array<T> from, R (*reducer)(R, T)) {
+R   reduce(Array<T>& from, R (*reducer)(R, T)) {
     R reduced = R();
     for (unsigned int i = 0; i < from.size(); i += 1) {
         reduced = reducer(reduced, from[i]);

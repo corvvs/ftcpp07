@@ -3,6 +3,9 @@
 #include "Array.hpp"
 #include "array_tool.hpp"
 #include "Constants.hpp"
+#include "Array.hpp"
+#include "array_tool.hpp"
+#include "Constants.hpp"
 
 void    say(const std::string& str) {
     std::cout << str << std::endl;
@@ -19,6 +22,13 @@ std::string upcaser(const std::string str) {
         upcased[i] = std::toupper(str[i]);
     }
     return upcased;
+}
+
+
+void    dest_upcase(std::string& str) {
+    for (std::size_t i = 0; i < str.length(); i += 1) {
+        str[i] = std::toupper(str[i]);
+    }
 }
 
 int len(const std::string str) {
@@ -74,6 +84,9 @@ int main(int argc, char **argv) {
         int sl = reduce(str_array, slen);
         std::cout << sl << std::endl;
 
+        str_array.iter(dest_upcase);
+        std::cout << str_array << std::endl;
+
         Array<std::string> str_array2(2);
         std::cout << str_array2 << std::endl;
     } catch (std::exception& e) {
@@ -98,6 +111,7 @@ int main(int argc, char **argv) {
         say("[ self assignation ]");
         Array<int> array = Array<int>(10);
         array[0] = 100;
+        array[9] = -42;
         std::cout << array << std::endl;
         Array<int>* ap = &array;
         *ap = array;

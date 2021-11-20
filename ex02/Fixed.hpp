@@ -1,5 +1,5 @@
-#ifndef CPP02_EX03_FIXED_HPP_
-# define CPP02_EX03_FIXED_HPP_
+#ifndef CPP07_FIXED_HPP_
+# define CPP07_FIXED_HPP_
 
 # include <iostream>
 
