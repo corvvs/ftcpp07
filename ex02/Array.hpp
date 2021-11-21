@@ -111,6 +111,17 @@ class Array {
                 func(body_[i]);
             }
         }
+        void            iter(void (*func)(const T)) {
+            if (!func) {
+                return;
+            }
+            if (!body_) {
+                return;
+            }
+            for (std::size_t i = 0; i < size_; i += 1) {
+                func(body_[i]);
+            }
+        }
 };
 
 template <class T>

@@ -3,8 +3,16 @@
 
 # include <cstdlib>
 
-template <class T, typename Func>
-void    iter(T array[], std::size_t n, Func func) {
+template <class T>
+void    iter(T array[], std::size_t n, void (*func)(T&)) {
+    if (!func) { return; }
+    for (std::size_t i = 0; i < n; i += 1) {
+        func(array[i]);
+    }
+}
+
+template <class T>
+void    iter(T array[], std::size_t n, void (*func)(T)) {
     if (!func) { return; }
     for (std::size_t i = 0; i < n; i += 1) {
         func(array[i]);

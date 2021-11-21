@@ -7,7 +7,7 @@ void    say(const std::string& str) {
     std::cout << str << std::endl;
 }
 
-void    put_char(const char c) {
+void    put_char(const char& c) {
     std::cout << c;
 }
 
@@ -25,33 +25,47 @@ void    put_some(const char& c) {
     std::cout << c;
 }
 
-int main(int argc, char **argv) {
+template<class T>
+void    put_any(T& c) {
+    std::cout << c << ", ";
+}
 
-    void (*fchar)(const char c) = put_char;
+template<>
+void    put_any(char& c) {
+    std::cout << c;
+}
+
+
+int main(int argc, char **argv) {
+    (void)argc;
+    (void)argv;
+    void (*fchar)(const char& c) = put_char;
     {
         say("[ std::string ]");
         say("<8, fchar>");
         iter("42tokyo\n", 8, fchar);
-        say("<0, fchar>");
-        iter("42tokyo\n", 0, fchar);
-        fchar = NULL;
-        say("<8, NULL>");
-        iter("42tokyo\n", 8, fchar);
-        say("<8, put_int>");
-        iter("42tokyo\n", 8, put_int);
-        std::cout << std::endl;
+        // say("<0, fchar>");
+        // iter("42tokyo\n", 0, fchar);
+        // fchar = NULL;
+        // say("<8, NULL>");
+        // iter("42tokyo\n", 8, fchar);
+        // say("<8, put_int>");
+        // iter("42tokyo\n", 8, put_int);
+        // std::cout << std::endl;
         say("<8, put_some<char>>");
-        iter("42tokyo\n", 8, put_some<char>);
-        say("<8, put_some<int>>");
-        iter("42tokyo\n", 8, put_some<int>);
-        std::cout << std::endl;
-        say("<8, put_some<double>>");
-        iter("42tokyo\n", 8, put_some<double>);
-        std::cout << std::endl;
+        iter("42tokyo\n", 8, put_some);
+        say("<8, put_any<char>>");
+        iter("42tokyo\n", 8, put_any);
+        // say("<8, put_some<int>>");
+        // iter("42tokyo\n", 8, put_some<int>);
+        // std::cout << std::endl;
+        // say("<8, put_some<double>>");
+        // iter("42tokyo\n", 8, put_some<double>);
+        // std::cout << std::endl;
     }
-    {
-        say("[ std::string[] ]");
-        iter(argv, argc, put_some<std::string>);
-        std::cout << std::endl;
-    }
+    // {
+    //     say("[ std::string[] ]");
+    //     iter(argv, argc, put_some<std::string>);
+    //     std::cout << std::endl;
+    // }
 }
