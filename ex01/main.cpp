@@ -45,8 +45,9 @@ void    put_any(const char& c) {
     std::cout << c;
 }
 
-void    doubler(int& n) {
-    n *= 2;
+template<class T>
+void    doubler(T& n) {
+    n += n;
 }
 
 
@@ -99,6 +100,20 @@ int main(int argc, char **argv) {
     {
         say("[ std::string[] ]");
         iter(argv, argc, put_any);
+        std::cout << std::endl;
+        const int n = 4;
+        std::string strs[n];
+        for (int i = 0; i < n; i += 1) {
+            if (i < argc) {
+                strs[i] = argv[i];
+            } else {
+                strs[i] = "";
+            }
+        }
+        iter(strs, n, put_any);
+        std::cout << std::endl;
+        iter(strs, n, doubler);
+        iter(strs, n, put_any);
         std::cout << std::endl;
     }
 }
