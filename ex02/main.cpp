@@ -39,6 +39,10 @@ int slen(int s, const std::string str) {
     return s + str.length();
 }
 
+bool is_hello(std::string& str) {
+    return str == "hello";
+}
+
 int main(int argc, char **argv) {
     try {
         say("[ Array<int> ]");
@@ -63,6 +67,10 @@ int main(int argc, char **argv) {
         std::cout << int_array3.getSize() << std::endl;
         std::cout << int_array3 << std::endl;
         std::cout << std::endl;
+        const Array<int> int_array4(int_array);
+        std::cout << int_array4.getSize() << std::endl;
+        std::cout << int_array4 << std::endl;
+        std::cout << std::endl;
     } catch (std::exception& e) {
         std::cout
             << Constants::kTextError
@@ -72,11 +80,20 @@ int main(int argc, char **argv) {
 
     try {
         say("[ Array<string> ]");
-        Array<std::string> str_array(argc);
-        for(int i = 0; i < argc; i += 1) {
-            str_array[i] = argv[i];
+        Array<std::string> str_array(argc - 1);
+        for(int i = 1; i < argc; i += 1) {
+            str_array[i - 1] = argv[i];
         }
         std::cout << str_array << std::endl;
+
+        std::cout
+            << "any hello?: "
+            << std::boolalpha << any(str_array, is_hello)
+            << std::endl;
+        std::cout
+            << "every hello?: "
+            << std::boolalpha << every(str_array, is_hello)
+            << std::endl;
 
         Array<int> upcased = map(str_array, len);
         std::cout << upcased << std::endl;
@@ -89,6 +106,9 @@ int main(int argc, char **argv) {
 
         Array<std::string> str_array2(2);
         std::cout << str_array2 << std::endl;
+
+        Array<std::string> str_array3(0);
+        std::cout << str_array3 << std::endl;
     } catch (std::exception& e) {
         std::cout
             << Constants::kTextError

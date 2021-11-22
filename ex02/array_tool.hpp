@@ -39,4 +39,24 @@ R   reduce(Array<T> from, R (*reducer)(R&, T&)) {
     return reduced;
 }
 
+template <class T>
+bool    any(Array<T> from, bool (*predicate)(T&)) {
+    for (unsigned int i = 0; i < from.size(); i += 1) {
+        if (predicate(from[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+template <class T>
+bool    every(Array<T> from, bool (*predicate)(T&)) {
+    for (unsigned int i = 0; i < from.size(); i += 1) {
+        if (!predicate(from[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
 #endif
