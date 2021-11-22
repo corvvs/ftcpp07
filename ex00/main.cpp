@@ -10,18 +10,18 @@ void    say(const std::string& str) {
 }
 
 template <class T>
-void test(T& a, T& b) {
+void test(T a, T b) {
     say("(values)");
     std::cout << "a: " << a << std::endl;
     std::cout << "b: " << b << std::endl;
     say("(swap)");
-    swap(a, b);
+    ::swap(a, b);
     std::cout << "a: " << a << std::endl;
     std::cout << "b: " << b << std::endl;
     say("(min)");
-    std::cout << "min(a, b) = " << min(a, b) << std::endl;
+    std::cout << "min(a, b) = " << ::min(a, b) << std::endl;
     say("(max)");
-    std::cout << "max(a, b) = " << max(a, b) << std::endl;
+    std::cout << "max(a, b) = " << ::max(a, b) << std::endl;
     say("");
 }
 
@@ -37,6 +37,13 @@ int main() {
         say("[ string ]");
         std::string a = "hello";
         std::string b = "world";
+        test(a, b);
+        test(a, b);
+    }
+    {
+        say("[ const string ]");
+        const std::string a = "42";
+        const std::string b = "tokyo";
         test(a, b);
         test(a, b);
     }
