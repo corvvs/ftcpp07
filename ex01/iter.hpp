@@ -5,15 +5,15 @@
 
 template <class T>
 void    iter(T array[], std::size_t n, void (*func)(T&)) {
-    if (!func) { return; }
+    if (!array || !func) { return; }
     for (std::size_t i = 0; i < n; i += 1) {
         func(array[i]);
     }
 }
 
 template <class T>
-void    iter(T array[], std::size_t n, void (*func)(T)) {
-    if (!func) { return; }
+void    iter(const T array[], std::size_t n, void (*func)(const T&)) {
+    if (!array || !func) { return; }
     for (std::size_t i = 0; i < n; i += 1) {
         func(array[i]);
     }

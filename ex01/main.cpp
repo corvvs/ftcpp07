@@ -2,9 +2,10 @@
 #include <cmath>
 #include "iter.hpp"
 #include "iter.hpp"
+#include "Fixed.hpp"
 
 void    say(const std::string& str) {
-    std::cout << str << std::endl;
+    std::cout << std::endl << str << std::endl << std::endl;
 }
 
 void    put_char(const char& c) {
@@ -47,22 +48,25 @@ void    put_any(const char& c) {
 
 template<class T>
 void    doubler(T& n) {
-    n += n;
+    n = n + n;
+}
+
+template<class T>
+void    prnt(T const & n) {
+    std::cout << "[" << n << "]" << std::endl;
 }
 
 
 int main(int argc, char **argv) {
-    (void)argc;
-    (void)argv;
     {
-        say("[ int[] ]");
+        say("[ const int[] ]");
         const int array[] = {3, 2, 1, 0};
         say("<4, put_some>");
         iter(array, 4, put_some);
         std::cout << std::endl;
     }
     {
-        say("[ const int[] ]");
+        say("[ int[] ]");
         int array2[] = {5, 6, 7, 8};
         say("<4, put_some>");
         iter(array2, 4, put_some);
@@ -78,7 +82,7 @@ int main(int argc, char **argv) {
     }
     void (*fchar)(const char& c) = put_char;
     {
-        say("[ std::string ]");
+        say("[ const char* ]");
         say("<8, fchar>");
         iter("42tokyo\n", 8, fchar);
         say("<8, fchar=NULL>");
@@ -90,12 +94,16 @@ int main(int argc, char **argv) {
         iter("42tokyo\n", 8, put_any);
         say("<8, put_any<char>>");
         iter("42tokyo\n", 8, put_any<const char>);
+        say("[ char* ]");
         char var[8];
         memcpy(var, "42tokyo\n", 8);
         say("<8, put_some>");
         iter(var, 8, put_some);
         say("<8, put_any>");
         iter(var, 8, put_any);
+        char* var2 = NULL;
+        say("<NULL>");
+        iter(var2, 8, put_any);
     }
     {
         say("[ std::string[] ]");
@@ -115,5 +123,26 @@ int main(int argc, char **argv) {
         iter(strs, n, doubler);
         iter(strs, n, put_any);
         std::cout << std::endl;
+    }
+    {
+        say("[ Fixed ]");
+        Fixed fs1[2];
+        fs1[0] = Fixed(1.2f);
+        fs1[1] = Fixed(3.456f);
+        const Fixed fs2[2] = { fs1[0], fs1[1] };
+        iter(fs1, 2, prnt);
+        iter(fs1, 2, doubler);
+        iter(fs1, 2, prnt);
+        iter(fs2, 2, prnt);
+    }
+    {
+        say("[ special ]");
+        int is1[] = { 1, 2, 3, 10 };
+        const int is2[] = { 3, 2, 1, -10 };
+        iter(is1, 4, prnt);
+        iter(is1, 4, doubler);
+        iter(is1, 4, prnt);
+        iter(is2, 4, prnt);
+        // iter(is2, 4, doubler); // error: cannot assign to variable 'n' with const-qualified type 'const int &'
     }
 }
