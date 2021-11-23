@@ -52,10 +52,24 @@ void    doubler(T& n) {
 }
 
 template<class T>
-void    prnt(T const & n) {
+void    prnt_byref(T const & n) {
     std::cout << "[" << n << "]" << std::endl;
 }
 
+template<class T>
+void    prnt_byref_var(T & n) {
+    std::cout << "[" << n << "]" << std::endl;
+}
+
+template<class T>
+void    prnt_byval(T const n) {
+    std::cout << "[" << n << "]" << std::endl;
+}
+
+template<class T>
+void    prnt_byval_var(T n) {
+    std::cout << "[" << n << "]" << std::endl;
+}
 
 int main(int argc, char **argv) {
     {
@@ -130,19 +144,59 @@ int main(int argc, char **argv) {
         fs1[0] = Fixed(1.2f);
         fs1[1] = Fixed(3.456f);
         const Fixed fs2[2] = { fs1[0], fs1[1] };
-        iter(fs1, 2, prnt);
+        iter(fs1, 2, prnt_byref);
         iter(fs1, 2, doubler);
-        iter(fs1, 2, prnt);
-        iter(fs2, 2, prnt);
+        iter(fs1, 2, prnt_byref);
+        iter(fs2, 2, prnt_byref);
     }
     {
         say("[ special ]");
         int is1[] = { 1, 2, 3, 10 };
         const int is2[] = { 3, 2, 1, -10 };
-        iter(is1, 4, prnt);
+        std::cout << "- is1: byref_const -" << std::endl;
+        iter(is1, 4, prnt_byref);
+        std::cout << "- is1: byref_var -" << std::endl;
+        iter(is1, 4, prnt_byref_var);
+        std::cout << "- is1: byval_const -" << std::endl;
+        iter(is1, 4, prnt_byval);
+        std::cout << "- is1: byval_var -" << std::endl;
+        iter(is1, 4, prnt_byval_var);
+        std::cout << "(is1 is doubled)" << std::endl;
         iter(is1, 4, doubler);
-        iter(is1, 4, prnt);
-        iter(is2, 4, prnt);
+        std::cout << "- is1: byref_const -" << std::endl;
+        iter(is1, 4, prnt_byref);
+        std::cout << "- is1: byref_var -" << std::endl;
+        iter(is1, 4, prnt_byref_var);
+        std::cout << "- is1: byval_const -" << std::endl;
+        iter(is1, 4, prnt_byval);
+        std::cout << "- is1: byval_var -" << std::endl;
+        iter(is1, 4, prnt_byval_var);
+        std::cout << "- is2: byref_const -" << std::endl;
+        iter(is2, 4, prnt_byref);
+        std::cout << "- is2: byref_var -" << std::endl;
+        iter(is2, 4, prnt_byref_var);
+        std::cout << "- is2: byval_const -" << std::endl;
+        iter(is2, 4, prnt_byval);
+        std::cout << "- is2: byval_var -" << std::endl;
+        iter(is2, 4, prnt_byval_var);
         // iter(is2, 4, doubler); // error: cannot assign to variable 'n' with const-qualified type 'const int &'
+    }
+    {
+        say("[ special2 ]");
+        char str1[] = "mahimahi\n";
+        std::cout << "- byref -" << std::endl;
+        iter(str1, 9, prnt_byref);
+        std::cout << "- byval -" << std::endl;
+        iter(str1, 9, prnt_byval);
+        std::cout << "- byref_var -" << std::endl;
+        iter(str1, 9, prnt_byref_var);
+        std::cout << "- byval_var -" << std::endl;
+        iter(str1, 9, prnt_byval_var);
+        std::cout << "- byref instantiated -" << std::endl;
+        iter(str1, 9, prnt_byref<const char&>);
+        // iter(str1, 9, prnt_byval<const char>); // error: no matching function for call to 'iter'
+        std::cout << "- byref_var instantiated -" << std::endl;
+        iter(str1, 9, prnt_byref_var<char&>);
+        // iter(str1, 9, prnt_byval_var<char>); // error: no matching function for call to 'iter'
     }
 }
