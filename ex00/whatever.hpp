@@ -2,23 +2,20 @@
 # define CPP07_WHATEVER_HPP_
 
 template<class T>
-void    swap(T& a, T& b) {
-    // std::cerr << "SWAP";
+void        swap(T& a, T& b) {
     T temp(a);
     a = b;
     b = temp;
 }
 
 template<class T>
-T       min(T& a, T& b) {
-    // std::cerr << "MIN";
+const T&    min(const T& a, const T& b) {
     return a < b ? a : b;
 }
 
 template<class T>
-T       max(T& a, T& b) {
-    // std::cerr << "MAX";
-    return a >= b ? a : b;
+const T&    max(const T& a, const T& b) {
+    return a > b ? a : b;
 }
 
 #endif
