@@ -88,6 +88,10 @@ int main() {
         tester("b is", b, 42);
         tester("max(a, b) is", ::max(a, b), 42);
         tester("min(a, b) is", ::min(a, b), 10);
+        int MIN = ::min(a, b);
+        int MAX = ::max(a, b);
+        tester("MIN is", MIN, 10);
+        tester("MAX is", MAX, 42);
     }
     {
         say("[ string ]");
@@ -123,6 +127,14 @@ int main() {
         Fixed b(static_cast<float>(M_E));
         test(a, b);
         test(a, b);
+        Fixed MIN = ::min(a, b);
+        Fixed MAX = ::max(a, b);
+        tester("MIN is", MIN, b);
+        tester("MAX is", MAX, a);
+        const Fixed& CONST_MIN = ::min(a, b);
+        const Fixed& CONST_MAX = ::max(a, b);
+        tester("CONST_MIN is", CONST_MIN, b);
+        tester("CONST_MAX is", CONST_MAX, a);
     }
     {
         say("[ Same Fixed ]");
