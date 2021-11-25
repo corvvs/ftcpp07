@@ -141,6 +141,13 @@ int main() {
         const Fixed a(static_cast<float>(M_PI));
         const Fixed b(a);
         min_max_test(a, b);
+        std::cout
+            << Constants::kTextWarning
+            << "If max/min can't judge definitely, the functions should return second one." << std::endl
+            << Constants::kTextReset;
+        std::cout
+            << "&a: " << &a << std::endl
+            << "&b: " << &b << std::endl;
         tester("&max(a, b) is &b?", &::max(a, b), &b);
         tester("&min(a, b) is &b?", &::min(a, b), &b);
     }
